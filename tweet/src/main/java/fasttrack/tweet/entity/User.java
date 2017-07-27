@@ -4,27 +4,33 @@ import java.sql.Timestamp;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
-@Entity
+@Entity(name = "tweet_user")
 public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
+
 	@Embedded
 	private Credentials credentials;
 	
-	public User(Credentials credentials, Profile profile, Timestamp joined) {
-		
-		this.credentials = credentials;
-		this.profile = profile;
-		this.joined = joined;
-		this.active = true;
-	}
-
-	@Embedded
+	@OneToOne
 	private Profile profile;
 	
 	private Timestamp joined;
 	
 	// False if the users has been "DELETED"
-	private boolean active;
+	private boolean active= true;
+
+	public User() {
+		this.joined= new Timestamp(System.currentTimeMillis());
+	}
 
 	/**
 	 * @return the credentials
@@ -40,18 +46,19 @@ public class User {
 		this.credentials = credentials;
 	}
 
+
 	/**
-	 * @return the profile
+	 * @return the active
 	 */
-	public Profile getProfile() {
-		return profile;
+	public boolean isActive() {
+		return active;
 	}
 
 	/**
-	 * @param profile the profile to set
+	 * @param active the active to set
 	 */
-	public void setProfile(Profile profile) {
-		this.profile = profile;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	/**
@@ -69,17 +76,33 @@ public class User {
 	}
 
 	/**
-	 * @return the active
+	 * @return the id
 	 */
-	public boolean isActive() {
-		return active;
+	public long getId() {
+		return id;
+	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	/**
+	 * @return the profile
+	 */
+	public Profile getProfile() {
+		return profile;
 	}
 
 	/**
-	 * @param active the active to set
+	 * @param profile the profile to set
 	 */
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
 	/* (non-Javadoc)
@@ -89,9 +112,10 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((credentials == null) ? 0 : credentials.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -105,11 +129,9 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (credentials == null) {
-			if (other.credentials != null)
-				return false;
-		} else if (!credentials.equals(other.credentials))
+		if (id != other.id)
 			return false;
 		return true;
 	}
+	
 }

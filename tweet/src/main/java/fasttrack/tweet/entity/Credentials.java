@@ -1,15 +1,17 @@
 package fasttrack.tweet.entity;
 
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Credentials {
-	@NotNull
+	
 	private String username;
-	@NotNull
+	
 	private String password;
 	
+	public Credentials() {
+
+	}
 	public Credentials(String username, String password) {
 		this.username = username;
 		this.password = password;

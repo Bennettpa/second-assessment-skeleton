@@ -8,12 +8,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import fasttrack.tweet.dto.CredentialsProfileDto;
 import fasttrack.tweet.dto.UserDto;
+import fasttrack.tweet.entity.User;
 import fasttrack.tweet.service.UserService;
 import io.swagger.annotations.ApiOperation;
 
+@RestController
+@RequestMapping("user")
 public class UserController {
 	
 	private UserService userService;
@@ -24,7 +29,7 @@ public class UserController {
 
 	@GetMapping
 	@ApiOperation(value = "", nickname = "getAllUsers")
-	public List<UserDto> getAllUsers() {
+	public List<User> getAllUsers() {
 		return userService.getAllUsers();
 	}
 	

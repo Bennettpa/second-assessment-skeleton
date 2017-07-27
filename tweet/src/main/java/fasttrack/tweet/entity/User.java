@@ -13,6 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity(name = "tweet_user")
 public class User {
 
@@ -22,29 +25,40 @@ public class User {
 	
 
 	@Embedded
+	@Cascade({CascadeType.ALL})
 	private Credentials credentials;
 	
 	@OneToOne
+	@Cascade({CascadeType.ALL})
 	private Profile profile;
 	
+	@Cascade({CascadeType.ALL})
 	private Timestamp joined;
 	
 	@ManyToMany
+	@Cascade({CascadeType.ALL})
 	private Set<User> following = new HashSet<User>();
 	
 	@ManyToMany
+	@Cascade({CascadeType.ALL})
 	private Set<User> followers = new HashSet<User>();
 	
 	// False if the users has been "DELETED"
+	@Cascade({CascadeType.ALL})
 	private boolean active= true;
 	
 	@OneToMany(mappedBy = "author")
+	@Cascade({CascadeType.ALL})
 	private Set<Tweet> tweets = new HashSet<Tweet>();
 	
 	@ManyToMany
+	@Cascade({CascadeType.ALL})
 	private Set<Tweet> mentions = new HashSet<Tweet>();
 	
-
+	@ManyToMany
+	@Cascade({CascadeType.ALL})
+	private Set<Tweet> likes = new HashSet<Tweet>();
+	
 	public User() {
 		this.joined= new Timestamp(System.currentTimeMillis());
 	}
@@ -176,6 +190,20 @@ public class User {
 	 */
 	public void setFollowers(Set<User> followers) {
 		this.followers = followers;
+	}
+
+	/**
+	 * @return the likes
+	 */
+	public Set<Tweet> getLikes() {
+		return likes;
+	}
+
+	/**
+	 * @param likes the likes to set
+	 */
+	public void setLikes(Set<Tweet> likes) {
+		this.likes = likes;
 	}
 
 	/* (non-Javadoc)

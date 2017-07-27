@@ -41,6 +41,9 @@ public class Tweet {
 	@ManyToMany
 	private Set<User> mentions = new HashSet<User>();
 	
+	@ManyToMany
+	private Set<Tweet> likes = new HashSet<Tweet>();
+	
 	public Tweet() {
 		this.posted = new Timestamp(System.currentTimeMillis());
 	}
@@ -183,6 +186,20 @@ public class Tweet {
 	 */
 	public void setMentions(Set<User> mentions) {
 		this.mentions = mentions;
+	}
+
+	/**
+	 * @return the likes
+	 */
+	public Set<Tweet> getLikes() {
+		return likes;
+	}
+
+	/**
+	 * @param likes the likes to set
+	 */
+	public void setLikes(Set<Tweet> likes) {
+		this.likes = likes;
 	}
 
 	/* (non-Javadoc)

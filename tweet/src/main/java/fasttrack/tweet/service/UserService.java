@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import fasttrack.tweet.dto.CredentialsDto;
 import fasttrack.tweet.dto.CredentialsProfileDto;
 import fasttrack.tweet.dto.UserDto;
 import fasttrack.tweet.entity.Credentials;
@@ -29,17 +30,6 @@ public class UserService {
 		return userrepo.findAll();
 	}
 
-	public UserDto post(CredentialsProfileDto inputDto) {
-		User user = new User();
-		Profile profile = usermapper.toProfile(inputDto.getProfile());
-		System.out.println("FirstName: "+profile.getFirstName());
-		Credentials credentials = usermapper.toCredentials(inputDto.getCredentials());
-		user.setCredentials(credentials);
-		user.setProfile(profile);
-		userrepo.save(user);
-		return usermapper.toDto(user);
-	}
-
 	public UserDto getUserByUsername(String username) {
 		// TODO Auto-generated method stub
 		return null;
@@ -61,6 +51,41 @@ public class UserService {
 	}
 
 	public List<User> getFollowersByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public UserDto post(CredentialsProfileDto inputDto) {
+		User user = new User();
+		Profile profile = usermapper.toProfile(inputDto.getProfile());
+		Credentials credentials = usermapper.toCredentials(inputDto.getCredentials());
+		user.setCredentials(credentials);
+		user.setProfile(profile);
+		userrepo.save(user);
+		return usermapper.toDto(user);
+	}
+	
+	public void followUser(CredentialsDto inputDto, String username) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void unfollowUser(CredentialsDto inputDto, String username) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public User deleteUser(CredentialsDto inputDto, String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public User updateUser(CredentialsProfileDto inputDto, String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Tweet> getTweetsByUsername(String username) {
 		// TODO Auto-generated method stub
 		return null;
 	}

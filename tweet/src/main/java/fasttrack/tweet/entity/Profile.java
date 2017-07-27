@@ -5,19 +5,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 public class Profile {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+	@Cascade({CascadeType.ALL})
 	private String firstName;
+	@Cascade({CascadeType.ALL})
 	private String lastName;
 	
-	
+	@Cascade({CascadeType.ALL})
 	private String email;
-	
+	@Cascade({CascadeType.ALL})
 	private String phone;
 
 	public Profile() {

@@ -1,12 +1,13 @@
 package fasttrack.tweet.dto;
 
-import fasttrack.tweet.entity.Credentials;
-import fasttrack.tweet.entity.Profile;
+import javax.persistence.Embedded;
 
 public class CredentialsProfileDto {
-
+	
+	@Embedded
 	private CredentialsDto credentials;
 	
+	@Embedded
 	private ProfileDto profile;
 
 	/**

@@ -2,11 +2,14 @@ package fasttrack.tweet.entity;
 
 import javax.persistence.Embeddable;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Embeddable
 public class Credentials {
-	
+	@Cascade({CascadeType.ALL})
 	private String username;
-	
+	@Cascade({CascadeType.ALL})
 	private String password;
 	
 	public Credentials() {

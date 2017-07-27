@@ -8,6 +8,7 @@ import fasttrack.tweet.dto.CredentialsProfileDto;
 import fasttrack.tweet.dto.UserDto;
 import fasttrack.tweet.entity.Credentials;
 import fasttrack.tweet.entity.Profile;
+import fasttrack.tweet.entity.Tweet;
 import fasttrack.tweet.entity.User;
 import fasttrack.tweet.mapstruct.UserMapper;
 import fasttrack.tweet.repository.UserRepository;
@@ -37,6 +38,31 @@ public class UserService {
 		user.setProfile(profile);
 		userrepo.save(user);
 		return usermapper.toDto(user);
+	}
+
+	public UserDto getUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Tweet> getFeedByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Tweet> getMentionsByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<User> getFollowingByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<User> getFollowersByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

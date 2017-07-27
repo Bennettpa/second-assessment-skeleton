@@ -1,12 +1,16 @@
 package fasttrack.tweet.entity;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity(name = "tweet_user")
@@ -25,8 +29,21 @@ public class User {
 	
 	private Timestamp joined;
 	
+	@ManyToMany
+	private Set<User> following = new HashSet<User>();
+	
+	@ManyToMany
+	private Set<User> followers = new HashSet<User>();
+	
 	// False if the users has been "DELETED"
 	private boolean active= true;
+	
+	@OneToMany(mappedBy = "author")
+	private Set<Tweet> tweets = new HashSet<Tweet>();
+	
+	@ManyToMany
+	private Set<Tweet> mentions = new HashSet<Tweet>();
+	
 
 	public User() {
 		this.joined= new Timestamp(System.currentTimeMillis());
@@ -103,6 +120,62 @@ public class User {
 	 */
 	public void setProfile(Profile profile) {
 		this.profile = profile;
+	}
+
+	/**
+	 * @return the following
+	 */
+	public Set<User> getFollowing() {
+		return following;
+	}
+
+	/**
+	 * @param following the following to set
+	 */
+	public void setFollowing(Set<User> following) {
+		this.following = following;
+	}
+
+	/**
+	 * @return the tweets
+	 */
+	public Set<Tweet> getTweets() {
+		return tweets;
+	}
+
+	/**
+	 * @param tweets the tweets to set
+	 */
+	public void setTweets(Set<Tweet> tweets) {
+		this.tweets = tweets;
+	}
+
+	/**
+	 * @return the mentions
+	 */
+	public Set<Tweet> getMentions() {
+		return mentions;
+	}
+
+	/**
+	 * @param mentions the mentions to set
+	 */
+	public void setMentions(Set<Tweet> mentions) {
+		this.mentions = mentions;
+	}
+
+	/**
+	 * @return the followers
+	 */
+	public Set<User> getFollowers() {
+		return followers;
+	}
+
+	/**
+	 * @param followers the followers to set
+	 */
+	public void setFollowers(Set<User> followers) {
+		this.followers = followers;
 	}
 
 	/* (non-Javadoc)

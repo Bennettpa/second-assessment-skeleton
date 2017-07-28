@@ -10,23 +10,24 @@ import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class Profile {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private String firstName;
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private String lastName;
-	
-	@Cascade({CascadeType.ALL})
+
+	@Cascade({ CascadeType.ALL })
 	private String email;
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private String phone;
 
 	public Profile() {
-		
+
 	}
+
 	/**
 	 * @return the firstName
 	 */
@@ -35,7 +36,8 @@ public class Profile {
 	}
 
 	/**
-	 * @param firstName the firstName to set
+	 * @param firstName
+	 *            the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -49,7 +51,8 @@ public class Profile {
 	}
 
 	/**
-	 * @param lastName the lastName to set
+	 * @param lastName
+	 *            the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -63,7 +66,8 @@ public class Profile {
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -77,13 +81,16 @@ public class Profile {
 	}
 
 	/**
-	 * @param phone the phone to set
+	 * @param phone
+	 *            the phone to set
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -94,7 +101,9 @@ public class Profile {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

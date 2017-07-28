@@ -13,15 +13,16 @@ import fasttrack.tweet.entity.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-	
+
 	ProfileDto toProfileDto(Profile profile);
+
 	Profile toProfile(ProfileDto profile);
-	
+
 	CredentialsDto toCredentialsDto(Credentials credentials);
+
 	Credentials toCredentials(CredentialsDto credentials);
-	@Mappings({ 
-		@Mapping(source = "credentials.username", target = "username")
-		})
+
+	@Mappings({ @Mapping(source = "credentials.username", target = "username") })
 	UserDto toDto(User user);
-	
+
 }

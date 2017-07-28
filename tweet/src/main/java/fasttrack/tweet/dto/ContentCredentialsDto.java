@@ -6,7 +6,7 @@ import fasttrack.tweet.entity.Credentials;
 
 public class ContentCredentialsDto {
 	private String content;
-	
+
 	@Embedded
 	private Credentials credentials;
 
@@ -18,7 +18,8 @@ public class ContentCredentialsDto {
 	}
 
 	/**
-	 * @param content the content to set
+	 * @param content
+	 *            the content to set
 	 */
 	public void setContent(String content) {
 		this.content = content;
@@ -32,7 +33,8 @@ public class ContentCredentialsDto {
 	}
 
 	/**
-	 * @param credentials the credentials to set
+	 * @param credentials
+	 *            the credentials to set
 	 */
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;

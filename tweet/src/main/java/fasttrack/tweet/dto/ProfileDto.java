@@ -1,17 +1,18 @@
 package fasttrack.tweet.dto;
 
 public class ProfileDto {
-	
+
 	private String firstName;
 	private String lastName;
-	
+
 	private String email;
-	
+
 	private String phone;
 
 	public ProfileDto() {
-		
+
 	}
+
 	/**
 	 * @return the firstName
 	 */
@@ -20,7 +21,8 @@ public class ProfileDto {
 	}
 
 	/**
-	 * @param firstName the firstName to set
+	 * @param firstName
+	 *            the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -34,7 +36,8 @@ public class ProfileDto {
 	}
 
 	/**
-	 * @param lastName the lastName to set
+	 * @param lastName
+	 *            the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -48,7 +51,8 @@ public class ProfileDto {
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -62,10 +66,11 @@ public class ProfileDto {
 	}
 
 	/**
-	 * @param phone the phone to set
+	 * @param phone
+	 *            the phone to set
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 }

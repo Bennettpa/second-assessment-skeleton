@@ -26,7 +26,7 @@ public class TweetService {
 	private TagRepository tagrepo;
 	private TweetMapper tweetmapper;
 	private TweetRepository tweetrepo;
-	
+
 	public TweetService(UserMapper usermapper, UserRepository userrepo, TagMapper tagmapper, TagRepository tagrepo,
 			TweetMapper tweetmapper, TweetRepository tweetrepo) {
 		super();
@@ -38,73 +38,61 @@ public class TweetService {
 		this.tweetrepo = tweetrepo;
 	}
 
-
 	public List<Tweet> getAllTweets() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public List<Tweet> getRepostById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	public List<Tweet> getRepliesById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public List<User> getMentionsById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	public List<User> getLikesById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public List<HashTag> getTagsById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	public TweetDto getTweetById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public TweetDto post(ContentCredentialsDto inputDto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	public void likeTweetById(CredentialsDto inputDto, String id) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	public TweetDto repostTweetById(CredentialsDto inputDto, String id) {
 		return null;
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	public TweetDto replyTweetById(ContentCredentialsDto inputDto, String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public Tweet deleteTweet(CredentialsDto inputDto, String id) {
 		// TODO Auto-generated method stub

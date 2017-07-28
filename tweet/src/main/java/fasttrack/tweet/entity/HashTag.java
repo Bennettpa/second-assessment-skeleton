@@ -1,22 +1,27 @@
 package fasttrack.tweet.entity;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class HashTag {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String label;
 	private Timestamp firstUsed;
 	private Timestamp lastUsed;
-	
+	@ManyToMany
+	private Set<Tweet> tags = new HashSet<Tweet>();
+
 	public HashTag() {
 		this.firstUsed = new Timestamp(System.currentTimeMillis());
 		this.lastUsed = new Timestamp(System.currentTimeMillis());
@@ -30,7 +35,8 @@ public class HashTag {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -44,7 +50,8 @@ public class HashTag {
 	}
 
 	/**
-	 * @param label the label to set
+	 * @param label
+	 *            the label to set
 	 */
 	public void setLabel(String label) {
 		this.label = label;
@@ -58,7 +65,8 @@ public class HashTag {
 	}
 
 	/**
-	 * @param firstUsed the firstUsed to set
+	 * @param firstUsed
+	 *            the firstUsed to set
 	 */
 	public void setFirstUsed(Timestamp firstUsed) {
 		this.firstUsed = firstUsed;
@@ -72,13 +80,31 @@ public class HashTag {
 	}
 
 	/**
-	 * @param lastUsed the lastUsed to set
+	 * @param lastUsed
+	 *            the lastUsed to set
 	 */
 	public void setLastUsed(Timestamp lastUsed) {
 		this.lastUsed = lastUsed;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the tags
+	 */
+	public Set<Tweet> getTags() {
+		return tags;
+	}
+
+	/**
+	 * @param tags
+	 *            the tags to set
+	 */
+	public void setTags(Set<Tweet> tags) {
+		this.tags = tags;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -89,7 +115,9 @@ public class HashTag {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

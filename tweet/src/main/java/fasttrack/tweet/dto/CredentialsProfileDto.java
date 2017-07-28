@@ -2,12 +2,17 @@ package fasttrack.tweet.dto;
 
 import javax.persistence.Embedded;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 public class CredentialsProfileDto {
-	
+
 	@Embedded
+	@Cascade({ CascadeType.ALL })
 	private CredentialsDto credentials;
-	
+
 	@Embedded
+	@Cascade({ CascadeType.ALL })
 	private ProfileDto profile;
 
 	/**
@@ -18,7 +23,8 @@ public class CredentialsProfileDto {
 	}
 
 	/**
-	 * @param credentials the credentials to set
+	 * @param credentials
+	 *            the credentials to set
 	 */
 	public void setCredentials(CredentialsDto credentials) {
 		this.credentials = credentials;

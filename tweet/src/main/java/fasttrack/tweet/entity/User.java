@@ -22,45 +22,44 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
 
 	@Embedded
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private Credentials credentials;
-	
+
 	@OneToOne
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private Profile profile;
-	
-	@Cascade({CascadeType.ALL})
+
+	@Cascade({ CascadeType.ALL })
 	private Timestamp joined;
-	
+
 	@ManyToMany
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private Set<User> following = new HashSet<User>();
-	
+
 	@ManyToMany
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private Set<User> followers = new HashSet<User>();
-	
+
 	// False if the users has been "DELETED"
-	@Cascade({CascadeType.ALL})
-	private boolean active= true;
-	
+	@Cascade({ CascadeType.ALL })
+	private boolean active = true;
+
 	@OneToMany(mappedBy = "author")
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private Set<Tweet> tweets = new HashSet<Tweet>();
-	
+
 	@ManyToMany
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private Set<Tweet> mentions = new HashSet<Tweet>();
 	
 	@ManyToMany
-	@Cascade({CascadeType.ALL})
+	@Cascade({ CascadeType.ALL })
 	private Set<Tweet> likes = new HashSet<Tweet>();
-	
+
 	public User() {
-		this.joined= new Timestamp(System.currentTimeMillis());
+		this.joined = new Timestamp(System.currentTimeMillis());
 	}
 
 	/**
@@ -71,12 +70,12 @@ public class User {
 	}
 
 	/**
-	 * @param credentials the credentials to set
+	 * @param credentials
+	 *            the credentials to set
 	 */
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
 	}
-
 
 	/**
 	 * @return the active
@@ -86,7 +85,8 @@ public class User {
 	}
 
 	/**
-	 * @param active the active to set
+	 * @param active
+	 *            the active to set
 	 */
 	public void setActive(boolean active) {
 		this.active = active;
@@ -100,7 +100,8 @@ public class User {
 	}
 
 	/**
-	 * @param joined the joined to set
+	 * @param joined
+	 *            the joined to set
 	 */
 	public void setJoined(Timestamp joined) {
 		this.joined = joined;
@@ -113,14 +114,13 @@ public class User {
 		return id;
 	}
 
-
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	/**
 	 * @return the profile
@@ -130,7 +130,8 @@ public class User {
 	}
 
 	/**
-	 * @param profile the profile to set
+	 * @param profile
+	 *            the profile to set
 	 */
 	public void setProfile(Profile profile) {
 		this.profile = profile;
@@ -144,7 +145,8 @@ public class User {
 	}
 
 	/**
-	 * @param following the following to set
+	 * @param following
+	 *            the following to set
 	 */
 	public void setFollowing(Set<User> following) {
 		this.following = following;
@@ -158,7 +160,8 @@ public class User {
 	}
 
 	/**
-	 * @param tweets the tweets to set
+	 * @param tweets
+	 *            the tweets to set
 	 */
 	public void setTweets(Set<Tweet> tweets) {
 		this.tweets = tweets;
@@ -172,7 +175,8 @@ public class User {
 	}
 
 	/**
-	 * @param mentions the mentions to set
+	 * @param mentions
+	 *            the mentions to set
 	 */
 	public void setMentions(Set<Tweet> mentions) {
 		this.mentions = mentions;
@@ -186,7 +190,8 @@ public class User {
 	}
 
 	/**
-	 * @param followers the followers to set
+	 * @param followers
+	 *            the followers to set
 	 */
 	public void setFollowers(Set<User> followers) {
 		this.followers = followers;
@@ -200,13 +205,16 @@ public class User {
 	}
 
 	/**
-	 * @param likes the likes to set
+	 * @param likes
+	 *            the likes to set
 	 */
 	public void setLikes(Set<Tweet> likes) {
 		this.likes = likes;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -217,8 +225,9 @@ public class User {
 		return result;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -234,5 +243,5 @@ public class User {
 			return false;
 		return true;
 	}
-	
+
 }

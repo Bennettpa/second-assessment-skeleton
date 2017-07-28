@@ -17,33 +17,36 @@ public class Tweet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@ManyToOne
 	private User author;
-	
+
 	private Timestamp posted;
 	private String content;
-	
+
 	@ManyToOne
 	private Tweet inReplyTo;
-	
+
 	@OneToMany
 	private Set<Tweet> replys = new HashSet<Tweet>();
-	
+
 	@ManyToOne
 	private Tweet repostof;
-	
+
 	@OneToMany
 	private Set<Tweet> reposts = new HashSet<Tweet>();
-	
+
 	private boolean active = true;
-	
+
 	@ManyToMany
 	private Set<User> mentions = new HashSet<User>();
-	
+
 	@ManyToMany
 	private Set<Tweet> likes = new HashSet<Tweet>();
-	
+
+	@ManyToMany
+	private Set<HashTag> tags = new HashSet<HashTag>();
+
 	public Tweet() {
 		this.posted = new Timestamp(System.currentTimeMillis());
 	}
@@ -56,7 +59,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -70,7 +74,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param author the author to set
+	 * @param author
+	 *            the author to set
 	 */
 	public void setAuthor(User author) {
 		this.author = author;
@@ -84,7 +89,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param posted the posted to set
+	 * @param posted
+	 *            the posted to set
 	 */
 	public void setPosted(Timestamp posted) {
 		this.posted = posted;
@@ -98,7 +104,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param content the content to set
+	 * @param content
+	 *            the content to set
 	 */
 	public void setContent(String content) {
 		this.content = content;
@@ -112,7 +119,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param inReplyTo the inReplyTo to set
+	 * @param inReplyTo
+	 *            the inReplyTo to set
 	 */
 	public void setInReplyTo(Tweet inReplyTo) {
 		this.inReplyTo = inReplyTo;
@@ -126,7 +134,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param repostof the repostof to set
+	 * @param repostof
+	 *            the repostof to set
 	 */
 	public void setRepostof(Tweet repostof) {
 		this.repostof = repostof;
@@ -140,7 +149,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param replys the replys to set
+	 * @param replys
+	 *            the replys to set
 	 */
 	public void setReplys(Set<Tweet> replys) {
 		this.replys = replys;
@@ -154,7 +164,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param reposts the reposts to set
+	 * @param reposts
+	 *            the reposts to set
 	 */
 	public void setReposts(Set<Tweet> reposts) {
 		this.reposts = reposts;
@@ -168,7 +179,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param active the active to set
+	 * @param active
+	 *            the active to set
 	 */
 	public void setActive(boolean active) {
 		this.active = active;
@@ -182,7 +194,8 @@ public class Tweet {
 	}
 
 	/**
-	 * @param mentions the mentions to set
+	 * @param mentions
+	 *            the mentions to set
 	 */
 	public void setMentions(Set<User> mentions) {
 		this.mentions = mentions;
@@ -196,13 +209,31 @@ public class Tweet {
 	}
 
 	/**
-	 * @param likes the likes to set
+	 * @param likes
+	 *            the likes to set
 	 */
 	public void setLikes(Set<Tweet> likes) {
 		this.likes = likes;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the tags
+	 */
+	public Set<HashTag> getTags() {
+		return tags;
+	}
+
+	/**
+	 * @param tags
+	 *            the tags to set
+	 */
+	public void setTags(Set<HashTag> tags) {
+		this.tags = tags;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -213,7 +244,9 @@ public class Tweet {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -229,6 +262,5 @@ public class Tweet {
 			return false;
 		return true;
 	}
-	
-	
+
 }

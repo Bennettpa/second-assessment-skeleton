@@ -3,11 +3,11 @@ package fasttrack.tweet.dto;
 import java.sql.Timestamp;
 
 public class UserDto {
-	
+
 	private String username;
-	
+
 	private ProfileDto profile;
-	
+
 	private Timestamp joined;
 
 	/**
@@ -18,7 +18,8 @@ public class UserDto {
 	}
 
 	/**
-	 * @param joined the joined to set
+	 * @param joined
+	 *            the joined to set
 	 */
 	public void setJoined(Timestamp joined) {
 		this.joined = joined;
@@ -32,7 +33,8 @@ public class UserDto {
 	}
 
 	/**
-	 * @param username the username to set
+	 * @param username
+	 *            the username to set
 	 */
 	public void setUsername(String username) {
 		this.username = username;
@@ -46,11 +48,11 @@ public class UserDto {
 	}
 
 	/**
-	 * @param profile the profile to set
+	 * @param profile
+	 *            the profile to set
 	 */
 	public void setProfile(ProfileDto profile) {
 		this.profile = profile;
 	}
-
 
 }

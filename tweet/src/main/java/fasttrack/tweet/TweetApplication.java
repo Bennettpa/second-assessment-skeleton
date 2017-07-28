@@ -20,22 +20,23 @@ public class TweetApplication {
 	}
 
 	/**
-	 * Allows SpringFox to generate the swagger documentation for all endpoints in the project
+	 * Allows SpringFox to generate the swagger documentation for all endpoints
+	 * in the project
+	 * 
 	 * @return Docket object used by SpringFox
 	 */
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.forCodeGeneration(true)
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
-				.build();
+		return new Docket(DocumentationType.SWAGGER_2).forCodeGeneration(true).select()
+				.apis(RequestHandlerSelectors.any()).paths(PathSelectors.any()).build();
 	}
-	
+
 	/**
-	 * By default, the SpringFox generated "swagger-ui" will not allow testing of HEAD or OPTIONS http methods. This will enable them.
-	 * @return UiConfiguration object used by SpringFox to configure the swagger-ui
+	 * By default, the SpringFox generated "swagger-ui" will not allow testing
+	 * of HEAD or OPTIONS http methods. This will enable them.
+	 * 
+	 * @return UiConfiguration object used by SpringFox to configure the
+	 *         swagger-ui
 	 */
 	@Bean
 	public UiConfiguration uiConfiguration() {

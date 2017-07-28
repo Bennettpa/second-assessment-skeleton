@@ -13,28 +13,20 @@ import fasttrack.tweet.repository.TweetRepository;
 
 @Service
 public class TagService {
-	private TagMapper tagmapper;
 	private TagRepository tagrepo;
-	private TweetMapper tweetmapper;
 	private TweetRepository tweetrepo;
-	
-	
+
 	public TagService(TagMapper tagmapper, TagRepository tagrepo, TweetMapper tweetmapper, TweetRepository tweetrepo) {
-		super();
-		this.tagmapper = tagmapper;
 		this.tagrepo = tagrepo;
-		this.tweetmapper = tweetmapper;
 		this.tweetrepo = tweetrepo;
 	}
 
 	public List<HashTag> getAllTags() {
-		// TODO Auto-generated method stub
-		return null;
+		return tagrepo.findAll();
 	}
 
 	public List<Tweet> getTweetsByLabel(String label) {
-		// TODO Auto-generated method stub
-		return null;
+		return tweetrepo.findByActiveAndTags_LabelEquals(true, label);
 	}
 
 }

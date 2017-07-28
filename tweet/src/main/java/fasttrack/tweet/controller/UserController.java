@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fasttrack.tweet.dto.CredentialsDto;
 import fasttrack.tweet.dto.CredentialsProfileDto;
+import fasttrack.tweet.dto.TweetDto;
 import fasttrack.tweet.dto.UserDto;
 import fasttrack.tweet.entity.User;
+import fasttrack.tweet.exception.InvaildUsernameException;
 import fasttrack.tweet.entity.Tweet;
 import fasttrack.tweet.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +27,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("users")
 public class UserController {
-	
+
 	private UserService userService;
 
 	public UserController(UserService userService) {
@@ -34,46 +36,46 @@ public class UserController {
 
 	@GetMapping
 	@ApiOperation(value = "", nickname = "getAllUsers")
-	public List<User> getAllUsers() {
+	public List<UserDto> getAllUsers() {
 		return userService.getAllUsers();
 	}
-	
+
 	@GetMapping("/@{username}")
 	@ApiOperation(value = "", nickname = "getUserByUsername")
-	public UserDto getUserByUsername(@PathVariable String username) {
+	public UserDto getUserByUsername(@PathVariable String username) throws InvaildUsernameException {
 		return userService.getUserByUsername(username);
 	}
-	
+
 	@GetMapping("/@{username}/feed")
 	@ApiOperation(value = "", nickname = "getFeedByUsername")
-	public List<Tweet> getFeedByUsername(@PathVariable String username) {
+	public List<TweetDto> getFeedByUsername(@PathVariable String username) {
 		return userService.getFeedByUsername(username);
 	}
-	
+
 	@GetMapping("/@{username}/tweets")
 	@ApiOperation(value = "", nickname = "getTweetsByUsername")
-	public List<Tweet> getTweetsByUsername(@PathVariable String username) {
+	public List<TweetDto> getTweetsByUsername(@PathVariable String username) {
 		return userService.getTweetsByUsername(username);
 	}
-	
+
 	@GetMapping("/@{username}/mentions")
 	@ApiOperation(value = "", nickname = "getMentionsByUsername")
-	public List<Tweet> getMentionsByUsername(@PathVariable String username) {
+	public List<TweetDto> getMentionsByUsername(@PathVariable String username) {
 		return userService.getMentionsByUsername(username);
 	}
-	
+
 	@GetMapping("/@{username}/followers")
 	@ApiOperation(value = "", nickname = "getFollowersByUsername")
 	public List<User> getFollowersByUsername(@PathVariable String username) {
 		return userService.getFollowersByUsername(username);
 	}
-	
+
 	@GetMapping("/@{username}/following")
 	@ApiOperation(value = "", nickname = "getFollowingByUsername")
 	public List<User> getFollowingByUsername(@PathVariable String username) {
 		return userService.getFollowingByUsername(username);
 	}
-	
+
 	@PostMapping
 	@ApiOperation(value = "", nickname = "postUser")
 	public UserDto post(@RequestBody @Validated CredentialsProfileDto inputDto, HttpServletResponse httpResponse) {
@@ -84,31 +86,35 @@ public class UserController {
 
 	@PostMapping("/@{username}/follow")
 	@ApiOperation(value = "", nickname = "followUser")
-	public void followUser(@RequestBody @Validated CredentialsDto inputDto, @PathVariable String username, HttpServletResponse httpResponse) {
+	public void followUser(@RequestBody @Validated CredentialsDto inputDto, @PathVariable String username,
+			HttpServletResponse httpResponse) {
 		userService.followUser(inputDto, username);
 		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
 
 	}
-	
+
 	@PostMapping("/@{username}/unfollow")
 	@ApiOperation(value = "", nickname = "unfollowUser")
-	public void unfollowUser(@RequestBody @Validated CredentialsDto inputDto, @PathVariable String username, HttpServletResponse httpResponse) {
+	public void unfollowUser(@RequestBody @Validated CredentialsDto inputDto, @PathVariable String username,
+			HttpServletResponse httpResponse) {
 		userService.unfollowUser(inputDto, username);
 		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
 
 	}
-	
+
 	@DeleteMapping("/@{username}")
 	@ApiOperation(value = "", nickname = "deleteUser")
-	public User deleteUser(@RequestBody @Validated CredentialsDto inputDto, @PathVariable String username, HttpServletResponse httpResponse) {
+	public User deleteUser(@RequestBody @Validated CredentialsDto inputDto, @PathVariable String username,
+			HttpServletResponse httpResponse) {
 		User user = userService.deleteUser(inputDto, username);
 		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
 		return user;
 	}
-	
+
 	@PatchMapping("/@{username}")
 	@ApiOperation(value = "", nickname = "updateUser")
-	public User updateUser(@RequestBody @Validated CredentialsProfileDto inputDto, @PathVariable String username,  HttpServletResponse httpResponse) {
+	public User updateUser(@RequestBody @Validated CredentialsProfileDto inputDto, @PathVariable String username,
+			HttpServletResponse httpResponse) {
 		User user = userService.updateUser(inputDto, username);
 		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
 		return user;

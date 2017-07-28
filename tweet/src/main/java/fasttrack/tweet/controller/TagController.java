@@ -15,24 +15,24 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("tags")
 public class TagController {
-	
+
 	private TagService tagService;
 
 	public TagController(TagService tagService) {
 		super();
 		this.tagService = tagService;
 	}
-	
+
 	@GetMapping
 	@ApiOperation(value = "", nickname = "getAllTags")
 	public List<HashTag> getAllTags() {
 		return tagService.getAllTags();
 	}
-	
+
 	@GetMapping("/{label}")
 	@ApiOperation(value = "", nickname = "getTweetsByLabel")
 	public List<Tweet> getTweetsByLabel(@PathVariable String label) {
 		return tagService.getTweetsByLabel(label);
 	}
-	
+
 }

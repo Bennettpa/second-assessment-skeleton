@@ -28,7 +28,7 @@ public class Tweet {
 	private Tweet inReplyTo;
 
 	@OneToMany
-	private Set<Tweet> replys = new HashSet<Tweet>();
+	private Set<Tweet> replies = new HashSet<Tweet>();
 
 	@ManyToOne
 	private Tweet repostof;
@@ -145,7 +145,7 @@ public class Tweet {
 	 * @return the replys
 	 */
 	public Set<Tweet> getReplys() {
-		return replys;
+		return replies;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class Tweet {
 	 *            the replys to set
 	 */
 	public void setReplys(Set<Tweet> replys) {
-		this.replys = replys;
+		this.replies = replys;
 	}
 
 	/**

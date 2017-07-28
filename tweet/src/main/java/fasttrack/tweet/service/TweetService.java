@@ -1,5 +1,6 @@
 package fasttrack.tweet.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -39,64 +40,104 @@ public class TweetService {
 	}
 
 	public List<Tweet> getAllTweets() {
-		// TODO Auto-generated method stub
-		return null;
+		return tweetrepo.findByActiveEqualsOrderByPostedDesc(true);
 	}
 
 	public List<Tweet> getRepostById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Tweet> tweets= tweetrepo.findRepostsByActiveAndIdEqualsOrderByPostedDesc(true, id);
+		for(Tweet tweet : tweets){
+			if(tweet.isActive()==false) tweets.remove(tweet);
+		}
+		return tweets;
 	}
 
 	public List<Tweet> getRepliesById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Tweet> tweets= tweetrepo.findRepliesByActiveAndIdEqualsOrderByPostedDesc(true, id);
+		for(Tweet tweet : tweets){
+			if(tweet.isActive()==false) tweets.remove(tweet);
+		}
+		return tweets;
 	}
 
 	public List<User> getMentionsById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> users= tweetrepo.findMentionsByActiveAndIdEquals(true, id);
+		for(User user : users){
+			if(user.isActive()==false) users.remove(user);
+		}
+		return users;
 	}
 
 	public List<User> getLikesById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> users= tweetrepo.findLikesByActiveAndIdEquals(true, id);
+		for(User user : users){
+			if(user.isActive()==false) users.remove(user);
+		}
+		return users;
 	}
 
 	public List<HashTag> getTagsById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return tweetrepo.findTagsByActiveAndIdEquals(true,id);
 	}
 
 	public TweetDto getTweetById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return tweetmapper.toDto(tweetrepo.findByActiveAndIdEquals(true,id));
 	}
 
 	public TweetDto post(ContentCredentialsDto inputDto) {
-		// TODO Auto-generated method stub
-		return null;
+		Tweet tweet = new Tweet();
+		tweet.setAuthor(userrepo.findByActiveAndCredentials_UsernameEquals(true, inputDto.getCredentials().getUsername()));
+		tweet.setContent(inputDto.getContent());
+		parseContent(tweet);
+		tweetrepo.save(tweet);
+		return tweetmapper.toDto(tweet);
+	}
+
+	private void parseContent(Tweet tweet) {
+		String[] content = tweet.getContent().split("\\s+");
+		for(String s : content){
+			if(s.matches("@\\S+")) tweet.getMentions().add(userrepo.findByActiveAndCredentials_UsernameEquals(true, s.replaceFirst("@", "")));
+			if(s.matches("#\\S+")) {
+				HashTag tag = tagrepo.findByLabelEquals(s.replaceFirst("#", ""));
+				tag.setLastUsed(new Timestamp(System.currentTimeMillis()));
+				tweet.getTags().add(tag);
+			}
+		}
+		
 	}
 
 	public void likeTweetById(CredentialsDto inputDto, String id) {
-		// TODO Auto-generated method stub
-
+		Tweet tweet = tweetmapper.toTweet(getTweetById(id));
+		User user = userrepo.findByActiveAndCredentials_UsernameEquals(true, inputDto.getUsername());
+		user.getLikes().add(tweet);
+		userrepo.save(user);
 	}
 
 	public TweetDto repostTweetById(CredentialsDto inputDto, String id) {
-		return null;
-		// TODO Auto-generated method stub
+		Tweet tweet = tweetmapper.toTweet(getTweetById(id));
+		Tweet repost = new Tweet();
+		repost.setAuthor(userrepo.findByActiveAndCredentials_UsernameEquals(true, inputDto.getUsername()));
+		repost.setContent(tweet.getContent());
+		repost.setRepostof(tweet);
+		tweetrepo.save(repost);
+		return tweetmapper.toDto(repost);
 
 	}
 
 	public TweetDto replyTweetById(ContentCredentialsDto inputDto, String id) {
-		// TODO Auto-generated method stub
-		return null;
+		Tweet tweet = tweetmapper.toTweet(getTweetById(id));
+		Tweet reply = new Tweet();
+		reply.setAuthor(userrepo.findByActiveAndCredentials_UsernameEquals(true, inputDto.getCredentials().getUsername()));
+		reply.setContent(inputDto.getContent());
+		reply.setInReplyTo(tweet);
+		tweetrepo.save(reply);
+		return tweetmapper.toDto(reply);
 	}
 
 	public Tweet deleteTweet(CredentialsDto inputDto, String id) {
-		// TODO Auto-generated method stub
-		return null;
+		Tweet tweet = tweetmapper.toTweet(getTweetById(id));
+		tweet.setActive(false);
+		tweetrepo.save(tweet);
+		return tweet;
 	}
 
 }

@@ -12,6 +12,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 public class Tweet {
 	@Id
@@ -19,32 +22,40 @@ public class Tweet {
 	private long id;
 
 	@ManyToOne
+	@Cascade({ CascadeType.ALL })
 	private User author;
 
 	private Timestamp posted;
 	private String content;
 
 	@ManyToOne
+	@Cascade({ CascadeType.ALL })
 	private Tweet inReplyTo;
 
 	@OneToMany
+	@Cascade({ CascadeType.ALL })
 	private Set<Tweet> replies = new HashSet<Tweet>();
 
 	@ManyToOne
+	@Cascade({ CascadeType.ALL })
 	private Tweet repostof;
 
 	@OneToMany
+	@Cascade({ CascadeType.ALL })
 	private Set<Tweet> reposts = new HashSet<Tweet>();
 
 	private boolean active = true;
 
 	@ManyToMany
+	@Cascade({ CascadeType.ALL })
 	private Set<User> mentions = new HashSet<User>();
 
 	@ManyToMany
+	@Cascade({ CascadeType.ALL })
 	private Set<Tweet> likes = new HashSet<Tweet>();
 
 	@ManyToMany
+	@Cascade({ CascadeType.ALL })
 	private Set<HashTag> tags = new HashSet<HashTag>();
 
 	public Tweet() {

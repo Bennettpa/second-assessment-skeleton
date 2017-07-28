@@ -1,13 +1,11 @@
 package fasttrack.tweet.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Embeddable
 public class Credentials {
-	
+	@Column(unique=true, nullable=false)  
 	private String username;
 	
 	private String password;

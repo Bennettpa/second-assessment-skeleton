@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 public class HashTag {
 
@@ -20,6 +23,7 @@ public class HashTag {
 	private Timestamp firstUsed;
 	private Timestamp lastUsed;
 	@ManyToMany
+	@Cascade({ CascadeType.ALL })
 	private Set<Tweet> tags = new HashSet<Tweet>();
 
 	public HashTag() {

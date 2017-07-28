@@ -21,9 +21,7 @@ import fasttrack.tweet.repository.UserRepository;
 @Service
 public class TweetService {
 
-	private UserMapper usermapper;
 	private UserRepository userrepo;
-	private TagMapper tagmapper;
 	private TagRepository tagrepo;
 	private TweetMapper tweetmapper;
 	private TweetRepository tweetrepo;
@@ -31,9 +29,7 @@ public class TweetService {
 	public TweetService(UserMapper usermapper, UserRepository userrepo, TagMapper tagmapper, TagRepository tagrepo,
 			TweetMapper tweetmapper, TweetRepository tweetrepo) {
 		super();
-		this.usermapper = usermapper;
 		this.userrepo = userrepo;
-		this.tagmapper = tagmapper;
 		this.tagrepo = tagrepo;
 		this.tweetmapper = tweetmapper;
 		this.tweetrepo = tweetrepo;
@@ -98,6 +94,10 @@ public class TweetService {
 			if(s.matches("@\\S+")) tweet.getMentions().add(userrepo.findByActiveAndCredentials_UsernameEquals(true, s.replaceFirst("@", "")));
 			if(s.matches("#\\S+")) {
 				HashTag tag = tagrepo.findByLabelEquals(s.replaceFirst("#", ""));
+				if(tag==null) {
+					tag = new HashTag();
+					tag.setLabel(s.replaceFirst("#", ""));
+				}
 				tag.setLastUsed(new Timestamp(System.currentTimeMillis()));
 				tweet.getTags().add(tag);
 			}

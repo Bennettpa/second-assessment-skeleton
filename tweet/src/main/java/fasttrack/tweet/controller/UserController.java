@@ -89,7 +89,7 @@ public class UserController {
 	public void followUser(@RequestBody @Validated CredentialsDto inputDto, @PathVariable String username,
 			HttpServletResponse httpResponse) {
 		userService.followUser(inputDto, username);
-		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
+		httpResponse.setStatus(HttpServletResponse.SC_ACCEPTED);
 
 	}
 
@@ -98,7 +98,7 @@ public class UserController {
 	public void unfollowUser(@RequestBody @Validated CredentialsDto inputDto, @PathVariable String username,
 			HttpServletResponse httpResponse) {
 		userService.unfollowUser(inputDto, username);
-		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
+		httpResponse.setStatus(HttpServletResponse.SC_ACCEPTED);
 
 	}
 
@@ -107,7 +107,7 @@ public class UserController {
 	public User deleteUser(@RequestBody @Validated CredentialsDto inputDto, @PathVariable String username,
 			HttpServletResponse httpResponse) {
 		User user = userService.deleteUser(inputDto, username);
-		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
+		httpResponse.setStatus(HttpServletResponse.SC_OK);
 		return user;
 	}
 
@@ -116,7 +116,7 @@ public class UserController {
 	public User updateUser(@RequestBody @Validated CredentialsProfileDto inputDto, @PathVariable String username,
 			HttpServletResponse httpResponse) {
 		User user = userService.updateUser(inputDto, username);
-		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
+		httpResponse.setStatus(HttpServletResponse.SC_ACCEPTED);
 		return user;
 	}
 

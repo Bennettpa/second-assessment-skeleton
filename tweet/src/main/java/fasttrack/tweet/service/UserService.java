@@ -24,7 +24,7 @@ import fasttrack.tweet.repository.UserRepository;
 @Service
 public class UserService {
 
-	private UserMapper usermapper;
+	private UserMapper userMapper;
 	private UserRepository userrepo;
 	private TweetMapper tweetmapper;
 	private TweetRepository tweetrepo;
@@ -34,19 +34,19 @@ public class UserService {
 	public UserService(UserMapper usermapper, UserRepository userrepo, TweetMapper tweetmapper,
 			TweetRepository tweetrepo) {
 		super();
-		this.usermapper = usermapper;
+		this.userMapper = usermapper;
 		this.userrepo = userrepo;
 		this.tweetmapper = tweetmapper;
 		this.tweetrepo = tweetrepo;
 	}
 
 	public List<UserDto> getAllUsers() {
-		return userrepo.findByActiveEquals(true).stream().map(usermapper::toDto).collect(Collectors.toList());
+		return userrepo.findByActiveEquals(true).stream().map(userMapper::toDto).collect(Collectors.toList());
 	}
 
 	public UserDto getUserByUsername(String username) throws InvaildUsernameException {
 		if(userrepo.findByActiveAndCredentials_UsernameEquals(true, username)== null)throw(new InvaildUsernameException("The username is invaild."));
-		return usermapper.toDto(userrepo.findByActiveAndCredentials_UsernameEquals(true, username));
+		return userMapper.toDto(userrepo.findByActiveAndCredentials_UsernameEquals(true, username));
 	}
 
 	public List<TweetDto> getFeedByUsername(String username) {
@@ -77,12 +77,12 @@ public class UserService {
 
 	public UserDto post(CredentialsProfileDto inputDto) {
 		User user = new User();
-		Profile profile = usermapper.toProfile(inputDto.getProfile());
-		Credentials credentials = usermapper.toCredentials(inputDto.getCredentials());
+		Profile profile = userMapper.toProfile(inputDto.getProfile());
+		Credentials credentials = userMapper.toCredentials(inputDto.getCredentials());
 		user.setCredentials(credentials);
 		user.setProfile(profile);
 		userrepo.save(user);
-		return usermapper.toDto(user);
+		return userMapper.toDto(user);
 	}
 
 	public void followUser(CredentialsDto inputDto, String username) {
@@ -107,8 +107,8 @@ public class UserService {
 	public User updateUser(CredentialsProfileDto inputDto, String username) {
 		User user = userrepo.findByActiveAndCredentials_UsernameEquals(true, username);
 		if(user.getCredentials().getUsername()==username) {
-			user.setProfile(usermapper.toProfile(inputDto.getProfile()));
-			user.setCredentials(usermapper.toCredentials(inputDto.getCredentials()));
+			user.setProfile(userMapper.toProfile(inputDto.getProfile()));
+			user.setCredentials(userMapper.toCredentials(inputDto.getCredentials()));
 			userrepo.save(user);
 		}
 		return user;
